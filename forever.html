@@ -131,18 +131,27 @@ h1{
     to{transform:translate(-50%,-130px) scale(3);opacity:0}
 }
 
-/* SPARKLE */
 .sparkle{
     position:fixed;
-    width:8px;height:8px;
+    width:14px;
+    height:14px;
     background:gold;
-    border-radius:50%;
+    clip-path: polygon(
+        50% 0%,
+        61% 35%,
+        98% 35%,
+        68% 57%,
+        79% 91%,
+        50% 70%,
+        21% 91%,
+        32% 57%,
+        2% 35%,
+        39% 35%
+    );
+    pointer-events:none;
     animation:spark 1s ease-out forwards;
 }
-@keyframes spark{
-    to{transform:translateY(-60px) scale(0);opacity:0}
-}
-
+    
 /* BALLOON */
 .balloon{
     position:fixed;
@@ -293,17 +302,25 @@ window.addEventListener("pointermove",e=>{
 });
 window.addEventListener("pointerup",()=>drag=false);
 
-// SPARKLE TAP
-cake.addEventListener("click",e=>{
-    for(let i=0;i<6;i++){
-        const s=document.createElement("div");
-        s.className="sparkle";
-        s.style.left=e.clientX+"px";
-        s.style.top=e.clientY+"px";
+// SPARKLE SELURUH LAYAR
+document.addEventListener("click", e => {
+    for(let i=0;i<8;i++){
+        const s = document.createElement("div");
+        s.className = "sparkle";
+
+        s.style.left = (e.clientX + Math.random()*40 - 20) + "px";
+        s.style.top  = (e.clientY + Math.random()*40 - 20) + "px";
+
+        // warna random + glow
+        const hue = Math.random()*360;
+        s.style.background = `hsl(${hue},90%,70%)`;
+        s.style.boxShadow = `0 0 12px hsl(${hue},90%,70%)`;
+
         document.body.appendChild(s);
         setTimeout(()=>s.remove(),1000);
     }
 });
+
 
 // MIC BLOW
 navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
@@ -371,4 +388,5 @@ function closeLetter(){
 
 </body>
 </html>
+
 
