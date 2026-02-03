@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forever 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@500&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+    min-height:100vh;
+    font-family:'Quicksand',sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    background:linear-gradient(120deg,#ffd1dc,#e6e6fa,#ffe4e1);
+    background-size:400% 400%;
+    animation:bgMove 18s ease infinite;
+}
+@keyframes bgMove{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+.container{
+    text-align:center;
+    z-index:10;
+    padding-top:20px;
+}
+
+h1{
+    font-family:'Dancing Script',cursive;
+    font-size:3rem;
+    color:#ff69b4;
+    position:relative;
+    z-index:20;
+}
+
+.date{
+    margin-top:6px;
+    margin-bottom:50px;
+    opacity:.75;
+    position:relative;
+    z-index:20;
+}
+
+.scene{
+    perspective:1000px;
+}
+
+.cake{
+    width:240px;
+    margin:auto;
+    transform-style:preserve-3d;
+    cursor:grab;
+    position:relative;
+    transition:transform .1s;
+}
+
+.layer{
+    height:65px;
+    border-radius:18px;
+    margin-bottom:6px;
+    background:linear-gradient(to bottom,#ffd1dc,#ffb6c1);
+    box-shadow: inset 0 -8px rgba(0,0,0,.15),0 12px 22px rgba(0,0,0,.25);
+}
+.layer:nth-child(3){background:linear-gradient(#ffc0cb,#ff9eb5)}
+.layer:nth-child(4){background:linear-gradient(#ffb6c1,#ff8fa3)}
+
+.drip{
+    position:absolute;
+    top:0;left:0;right:0;
+    height:26px;
+    background:#fff;
+    border-radius:18px;
+}
+
+/* TOPPING */
+.topping{
+    position:absolute;
+    width:14px;height:14px;
+    border-radius:50%;
+}
+.strawberry{background:#ff4d6d}
+.choco{background:#5a2d0c}
+
+/* CANDLES */
+.candles{
+    position:absolute;
+    top:-45px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:28px;
+}
+.candle{
+    width:14px;height:48px;
+    background:repeating-linear-gradient(
+        45deg,#fff,#fff 5px,#ffd1dc 5px,#ffd1dc 10px
+    );
+    border-radius:6px;
+    position:relative;
+}
+.flame{
+    position:absolute;
+    top:-22px;
+    left:50%;
+    transform:translateX(-50%);
+    width:18px;height:24px;
+    background:radial-gradient(circle at bottom,#ffd700,#ff4500);
+    border-radius:50%;
+    animation:flicker .35s infinite alternate;
+}
+@keyframes flicker{ to{transform:translateX(-50%) scale(1.2)} }
+
+/* SMOKE */
+.smoke{
+    position:absolute;
+    top:-18px;
+    left:50%;
+    width:18px;height:18px;
+    background:rgba(200,200,200,.6);
+    border-radius:50%;
+    animation:smoke 3s ease-out forwards;
+}
+@keyframes smoke{
+    to{transform:translate(-50%,-130px) scale(3);opacity:0}
+}
+
+/* SPARKLE */
+.sparkle{
+    position:fixed;
+    width:8px;height:8px;
+    background:gold;
+    border-radius:50%;
+    animation:spark 1s ease-out forwards;
+}
+@keyframes spark{
+    to{transform:translateY(-60px) scale(0);opacity:0}
+}
+
+/* BALLOON */
+.balloon{
+    position:fixed;
+    bottom:-140px;
+    width:45px;height:60px;
+    border-radius:50%;
+    animation:floatUp 8s ease-out forwards,sway 2.5s ease-in-out infinite alternate;
+}
+.balloon::after{
+    content:"";
+    position:absolute;
+    bottom:-20px;left:50%;
+    width:2px;height:20px;
+    background:#aaa;
+}
+@keyframes floatUp{ to{transform:translateY(-140vh);opacity:0} }
+@keyframes sway{ to{margin-left:20px} }
+
+/* LETTER */
+.paper{
+    position:fixed;
+    inset:0;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    background:rgba(0,0,0,.35);
+    z-index:30;
+}
+.paper-content {
+    width: 320px;
+    max-width: 90%;
+    max-height: 70vh; /* tinggi maksimum kartu */
+    overflow-y: auto;  /* scroll vertical jika teks panjang */
+    background: rgba(255,250,240,0.96);
+    backdrop-filter: blur(6px);
+    padding: 2rem;
+    border-radius: 18px;
+    position: relative;
+    animation: popIn .5s ease forwards, heartbeat 1.4s infinite;
+}
+
+.letter-text p {
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.close{
+    position:absolute;
+    top:10px;
+    right:14px;
+    cursor:pointer;
+}
+
+@media(max-width:600px){
+    h1{font-size:2.3rem}
+    .cake{width:200px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 MUSIC -->
+<audio id="music2" loop>
+    <source src="music2.mp3" type="audio/mpeg">
+</audio>
+<audio id="music3" loop preload="auto">
+    <source src="https://username.github.io/repo/music3.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+    <h1>Forever 💖</h1>
+    <div class="date" id="date">23 Februari 2006</div>
+
+    <div class="scene">
+        <div class="cake" id="cake">
+            <div class="candles">
+                <div class="candle"><div class="flame"></div></div>
+                <div class="candle"><div class="flame"></div></div>
+                <div class="candle"><div class="flame"></div></div>
+            </div>
+
+            <div class="drip"></div>
+            <div class="topping strawberry" style="top:8px;left:40px"></div>
+            <div class="topping strawberry" style="top:10px;right:40px"></div>
+            <div class="topping choco" style="top:18px;left:110px"></div>
+
+            <div class="layer"></div>
+            <div class="layer"></div>
+            <div class="layer"></div>
+        </div>
+    </div>
+
+    <p>🎤 Tiup lilin · 🎂 Putar kue · ✨ Tap</p>
+</div>
+
+<div class="paper" id="paper">
+    <div class="paper-content">
+        <span class="close" onclick="closeLetter()">✕</span>
+        <h2 style="font-family:Dancing Script;color:#ff69b4">For You 💖</h2>
+        <div class="letter-text">
+            <p>
+                Selamat Ulang Tahun, Cintaku 🤍<br>
+                Di hari spesial kamu ini, aku ingin kamu tahu satu hal penting: kamu tidak pernah sendirian, walaupun jarak memisahkan kita. Mungkin kita tidak bisa merayakan dengan kue yang sama, lilin yang sama, atau pelukan yang sama hari ini. Tapi percayalah, doaku, pikiranku, dan hatiku selalu ada di dekatmu. ✨
+            </p>
+            <p>
+                Aku tahu menjalani hubungan jarak jauh itu tidak mudah. Ada hari-hari capek, rindu yang datang tiba-tiba, dan perasaan ingin menyerah karena keadaan terasa tidak adil. Tapi aku sangat bangga sama kamu. Bangga karena kamu tetap bertahan, tetap berjuang dengan semua proses yang sedang kamu jalani sekarang. Kamu kuat, bahkan di saat kamu merasa lelah.
+            </p>
+            <p>
+                Di usia baru kamu ini, aku berharap semua yang sedang kamu usahakan berjalan dengan lancar. Semoga setiap langkahmu dimudahkan, setiap urusanmu diberi jalan keluar, dan setiap doa baik yang kamu panjatkan satu per satu dikabulkan. Kalau hari ini terasa berat, ingatlah bahwa semua ini bukan sia-sia. Kamu sedang tumbuh, sedang belajar, dan sedang menuju versi terbaik dari dirimu.
+            </p>
+            <p>
+                Terima kasih sudah bertahan sejauh ini. Terima kasih sudah memilih untuk tetap berjuang, bukan hanya untuk dirimu sendiri, tapi juga untuk kita. Aku mungkin tidak selalu bisa ada secara fisik, tapi aku akan selalu ada untuk mendengarkan, menguatkan, dan menemani kamu dalam setiap cerita, tawa, dan air mata.
+            </p>
+            <p>
+                Selamat ulang tahun, sayang. Semoga hari ini membawa senyum, dan hari-hari ke depan membawa harapan. Jangan ragu untuk merasa lelah, tapi jangan pernah ragu bahwa aku percaya padamu. Kita mungkin jauh sekarang, tapi suatu hari nanti, jarak ini hanya akan jadi cerita tentang betapa kuatnya kita bertahan.
+            </p>
+            <p>
+                Terima kasih sudah hadir didalam hidupku<br>
+                dan membuat segalanya berarti 💕<br>
+                Dengan penuh cinta,<br>
+                Aristo Yura
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<script>
+const cake=document.getElementById("cake");
+const music2=document.getElementById("music2");
+const music3=document.getElementById("music3");
+let drag=false,rx=0,ry=0,px,py;
+let blown=false;
+
+// mulai musik lilin hidup
+music2.volume=0.5;
+music2.play().catch(()=>{});
+
+// CAKE 3D ROTATE
+cake.addEventListener("pointerdown",e=>{drag=true;px=e.clientX;py=e.clientY;});
+window.addEventListener("pointermove",e=>{
+    if(!drag) return;
+    ry+=(e.clientX-px)*0.3;
+    rx-=(e.clientY-py)*0.3;
+    cake.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg)`;
+    px=e.clientX; py=e.clientY;
+});
+window.addEventListener("pointerup",()=>drag=false);
+
+// SPARKLE TAP
+cake.addEventListener("click",e=>{
+    for(let i=0;i<6;i++){
+        const s=document.createElement("div");
+        s.className="sparkle";
+        s.style.left=e.clientX+"px";
+        s.style.top=e.clientY+"px";
+        document.body.appendChild(s);
+        setTimeout(()=>s.remove(),1000);
+    }
+});
+
+// MIC BLOW
+navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
+    const ctx=new AudioContext();
+    const mic=ctx.createMediaStreamSource(stream);
+    const analyser=ctx.createAnalyser();
+    mic.connect(analyser);
+    const data=new Uint8Array(analyser.fftSize);
+
+    function listen(){
+        analyser.getByteTimeDomainData(data);
+        let sum=0;
+        for(let i=0;i<data.length;i++){
+            let v=(data[i]-128)/128; sum+=v*v;
+        }
+        let vol=Math.sqrt(sum/data.length);
+        if(vol>0.08 && !blown){ blow(); blown=true; }
+        requestAnimationFrame(listen);
+    }
+    listen();
+});
+
+// BLOW FUNCTION
+function blow(){
+    document.querySelectorAll(".flame").forEach(f=>f.remove());
+    document.querySelectorAll(".candle").forEach(c=>{
+        for(let i=0;i<3;i++){
+            const s=document.createElement("div");
+            s.className="smoke";
+            c.appendChild(s);
+        }
+    });
+
+    if(navigator.vibrate) navigator.vibrate([200,100,200]);
+
+    for(let i=0;i<12;i++){
+        const b=document.createElement("div");
+        b.className="balloon";
+        b.style.left=Math.random()*100+"vw";
+        b.style.background=`hsl(${Math.random()*360},80%,70%)`;
+        document.body.appendChild(b);
+        setTimeout(()=>b.remove(),8000);
+    }
+
+    // fade music2 & play music3
+    let fadeInterval = setInterval(() => {
+        if(music2.volume > 0.05){
+            music2.volume -= 0.05; // kurangi volume musik2
+        } else {
+            music2.pause();
+            clearInterval(fadeInterval);
+            music3.volume = 0.5;   // langsung set volume musik3
+            music3.play().catch(()=>{}); // mainkan musik3 tanpa delay
+        }
+    }, 100); // interval lebih cepat, fade lebih mulus    
+
+    setTimeout(()=>{ document.getElementById("paper").style.display="flex";
+        if(navigator.vibrate) navigator.vibrate([300,150,300]); },1500);
+}
+
+function closeLetter(){
+    document.getElementById("paper").style.display="none";
+}
+</script>
+
+</body>
+</html>
